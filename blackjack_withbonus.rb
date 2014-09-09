@@ -13,7 +13,7 @@
 # 4. Use multiple decks to prevent against card counting players. (Done)
 
 
-def username
+def username #save player's name
   puts "What is your name? Type it below"
   name = gets.chomp
   puts "Hello, #{name}"
@@ -21,21 +21,20 @@ def username
 end
 
 def calculate_total(cards)
-  # [['H', '3'], ['S', '4'], ...]
-  arr = cards.map{|e| e[1]} #map iterates each array to perform an action and will return new value
+  arr = cards.map{|e| e[1]}
 
   total = 0
   arr.each do |value|
     if value == "A"
       total += 11
-    elsif value.to_i == 0 # J, Q, K
+    elsif value.to_i == 0
       total += 10 
     else
-      total += value.to_i # if the value is as per "value.to_i", then we can just add it to total which is 0.
+      total += value.to_i
     end
   end
 
-  arr.select{|e| e == "A"}.count.times do #correct for Aces
+  arr.select{|e| e == "A"}.count.times do
     total -= 10 if total > 21
   end
 
@@ -46,7 +45,7 @@ def init_game(mycards, dealercards)
   suits = ['Spades', 'Hearts', 'Clubs', 'Diamonds']
   cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
   deck = suits.product(cards)
-  rand(5).times { deck << suits.product(cards)}
+  rand(5).times { deck << suits.product(cards)} # Multiple Decks
   deck.shuffle!
 
   2.times do
@@ -95,7 +94,7 @@ def play
     puts "Dealing card to player: #{new_card}"
     mycards << new_card
     mytotal = calculate_total(mycards)
-    puts "Your total is now: #{mytotal}, your cards are: #{mycards}"
+    puts "Your total is now: #{mytotal}, your cards are: #{mycards}" #shows suits
 
     if mytotal == 21
       puts "Congratulations, you hit blackjack! You Win!"
@@ -107,7 +106,6 @@ def play
   end
 
   # Dealer turn
-
   if dealertotal == 21
     puts "Sorry, dealer hit blackjack. You lose."
     cont
@@ -131,7 +129,6 @@ def play
   end
 
   # Compare hands
-
   puts "Dealer's cards: "
   dealercards.each do |card|
     puts "=> #{card}"
@@ -154,8 +151,8 @@ def play
   end
 end
 
-def cont
-puts "#, would you like to continue? (Y/N) "
+def cont #play again
+puts "#, would you like to continue? (Y/N) " #Player's name to be repeated here.
 continue = gets.chomp.upcase
   if continue == "Y"
   play
