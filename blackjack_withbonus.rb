@@ -7,7 +7,7 @@
 # Winer announced
 
 # Bonus
-# 1. Save the player's name, and use it throughout the app. (Unresolved)
+# 1. Save the player's name, and use it throughout the app. (Done)
 # 2. Ask the player if he wants to play again, rather than just exiting. (Done)
 # 3. Save not just the card value, but also the suit. (Done)
 # 4. Use multiple decks to prevent against card counting players. (Done)
@@ -15,8 +15,8 @@
 
 def username #save player's name
   puts "What is your name? Type it below"
-  name = gets.chomp
-  puts "Hello, #{name}"
+  @name = gets.chomp
+  puts "Hello, #{@name}"
   play
 end
 
@@ -80,7 +80,7 @@ def play
     hit_or_stay = gets.chomp
 
     if !['1', '2'].include?(hit_or_stay)
-      puts "Error: you must enter 1 or 2"
+      puts "I don't understand, you must type in 1 or 2"
       next
     end
 
@@ -94,7 +94,7 @@ def play
     puts "Dealing card to player: #{new_card}"
     mycards << new_card
     mytotal = calculate_total(mycards)
-    puts "Your total is now: #{mytotal}, your cards are: #{mycards}" #shows suits
+    puts "Your total is now: #{mytotal}, your cards are: #{mycards}" #shows player suits
 
     if mytotal == 21
       puts "Congratulations, you hit blackjack! You Win!"
@@ -117,7 +117,7 @@ def play
     puts "Dealing new card for dealer: #{new_card}"
     dealercards << new_card
     dealertotal = calculate_total(dealercards)
-    puts "dealer total is now: #{dealertotal}"
+    puts "dealer total is now: #{dealertotal}, dealer cards are: #{dealercards}" #shows dealer suits
 
     if dealertotal == 21
       puts "Sorry, the dealer hit blackjack. You lose."
@@ -152,16 +152,16 @@ def play
 end
 
 def cont #play again
-puts "#, would you like to continue? (Y/N) " #Player's name to be repeated here.
+puts "#{@name}, would you like to continue? (Y/N) " #Player's name to be repeated here.
 continue = gets.chomp.upcase
-  if continue == "Y"
-  play
-  elsif continue == "N"
-  puts "Thank you for your time and money!"
-  exit  
-  else continue != "Y"
-  puts "I don't understand, would you like to try again?"
-  cont
+  if continue == "Y" || continue == "YES"
+    play
+  elsif continue == "N" || continue == "NO"
+    puts "Thank you for your time and money!"
+    exit  
+  else
+    puts "I don't understand, would you like to try again?"
+    cont
   end
 end
 
