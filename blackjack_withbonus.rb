@@ -155,7 +155,7 @@ def play
 end
 
 def cont
-puts "#{name}, would you like to continue? (Y/N) "
+puts "#, would you like to continue? (Y/N) "
 continue = gets.chomp.upcase
   if continue == "Y"
   play
